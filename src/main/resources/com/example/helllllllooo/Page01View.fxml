@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="644.0" prefWidth="1018.0" styleClass="main" stylesheets="@mainpanel.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.helllllllooo.Page01Controller">
+   <Button fx:id="playquizbtn" layoutX="447.0" layoutY="535.0" onAction="#initialize" prefHeight="43.0" prefWidth="123.0" styleClass="startExam" stylesheets="@mainpanel.css" text="Start Exam">
+      <font>
+         <Font size="20.0" />
+      </font>
+   </Button>
+   <Label layoutX="242.0" layoutY="47.0" text="Masathai Citizenship Exam Rules" textFill="WHITE">
+      <font>
+         <Font name="Verdana Bold" size="30.0" />
+      </font>
+   </Label>
+   <Text id="questions" fill="#fffefe" layoutX="117.0" layoutY="140.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1. Time Limit" />
+   <Text id="questions" fill="WHITE" layoutX="131.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="--- The exam has a fixed duration of 5 minutes." />
+   <Text id="questions" fill="#fffefe" layoutX="131.0" layoutY="192.0" strokeType="OUTSIDE" strokeWidth="0.0" text="--- Candidates must complete the entire exam within the allocated time." />
+   <Text id="questions" fill="#fffefe" layoutX="117.0" layoutY="226.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2. Navigation" />
+   <Text id="questions" fill="#fffefe" layoutX="132.0" layoutY="251.0" strokeType="OUTSIDE" strokeWidth="0.0" text="--- Candidates can’t navigate freely between questions using the &quot;Next&quot; and &quot;Previous&quot; buttons." />
+   <Text id="questions" fill="#fffefe" layoutX="117.0" layoutY="287.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3. Answer Submission" />
+   <Text id="questions" fill="#fffefe" layoutX="132.0" layoutY="311.0" strokeType="OUTSIDE" strokeWidth="0.0" text="--- Candidates must select and at last submit the answer to see result." />
+   <Text id="questions" fill="#fffefe" layoutX="117.0" layoutY="354.0" strokeType="OUTSIDE" strokeWidth="0.0" text="4. Question Format" />
+   <Text id="questions" fill="#fffefe" layoutX="132.0" layoutY="378.0" strokeType="OUTSIDE" strokeWidth="0.0" text="--- The exam consists of 20 multiple-choice questions." />
+   <Text id="questions" fill="#fffefe" layoutX="133.0" layoutY="403.0" strokeType="OUTSIDE" strokeWidth="0.0" text="--- Each question has four answer options." />
+   <Text id="questions" fill="#fffefe" layoutX="117.0" layoutY="439.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5. Submission" />
+   <Text id="questions" fill="#fffefe" layoutX="132.0" layoutY="465.0" strokeType="OUTSIDE" strokeWidth="0.0" text="--- Candidates must submit the exam before the time expires." />
+   <Text id="questions" fill="#fffefe" layoutX="132.0" layoutY="492.0" strokeType="OUTSIDE" strokeWidth="0.0" text="--- Once the exam is submitted, candidates cannot make any changes to their answers." />
+</AnchorPane>

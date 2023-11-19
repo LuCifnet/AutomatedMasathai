@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="795.0" prefWidth="1345.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.helllllllooo.QuizController">
+    <children>
+        <Label fx:id="question" layoutX="452.0" layoutY="190.0" prefHeight="178.0" prefWidth="758.0" text="1. How many consonants are there in the English Alphabets?" wrapText="true">
+            <font>
+                <Font name="System Bold" size="26.0" />
+            </font>
+        </Label>
+        <Button fx:id="opt1" layoutX="538.0" layoutY="377.0" mnemonicParsing="false" onAction="#opt1clicked" prefHeight="57.0" prefWidth="236.0" style="-fx-background-color: dodgerblue; -fx-background-radius: 10px; -fx-border-radius: 10px;" text="Button" textFill="WHITE">
+            <font>
+                <Font name="Open Sans Semibold" size="17.0" />
+            </font>
+        </Button>
+        <Button id="opt3" fx:id="opt3" layoutX="538.0" layoutY="479.0" mnemonicParsing="false" onAction="#opt3clicked" prefHeight="57.0" prefWidth="236.0" style="-fx-background-color: dodgerblue; -fx-background-radius: 10px; -fx-border-radius: 10px;" text="Button" textFill="WHITE">
+            <font>
+                <Font name="Open Sans Semibold" size="17.0" />
+            </font>
+        </Button>
+        <Button id="opt4" fx:id="opt4" layoutX="853.0" layoutY="479.0" mnemonicParsing="false" onAction="#opt4clicked" prefHeight="57.0" prefWidth="236.0" style="-fx-background-color: dodgerblue; -fx-background-radius: 10px; -fx-border-radius: 10px;" text="Button" textFill="WHITE">
+            <font>
+                <Font name="Open Sans Semibold" size="17.0" />
+            </font>
+        </Button>
+        <Button id="opt2" fx:id="opt2" layoutX="853.0" layoutY="377.0" mnemonicParsing="false" onAction="#opt2clicked" prefHeight="57.0" prefWidth="236.0" style="-fx-background-color: dodgerblue; -fx-background-radius: 10px; -fx-border-radius: 10px;" text="Button" textFill="WHITE">
+            <font>
+                <Font name="Open Sans Semibold" size="17.0" />
+            </font>
+        </Button>
+        <Button fx:id="prevButton" layoutX="452.0" layoutY="695.0" onAction="#prevButtonClicked" prefHeight="26.0" prefWidth="77.0" styleClass="startExam" stylesheets="@mainpanel.css" text="Prev" />
+        <Button fx:id="nextButton" layoutX="1110.0" layoutY="695.0" onAction="#nextButtonClicked" prefHeight="26.0" prefWidth="77.0" styleClass="startExam" stylesheets="@mainpanel.css" text="Next" />
+        <Label layoutX="512.0" layoutY="47.0" text="MASATHAI QUIZ">
+            <font>
+                <Font name="System Bold" size="72.0" />
+            </font>
+        </Label>
+        <Button fx:id="submitButton" layoutX="724.0" layoutY="628.0" mnemonicParsing="false" onAction="#submitButtonClicked" prefHeight="58.0" prefWidth="178.0" styleClass="startExam" stylesheets="@mainpanel.css" text="Submit" />
+        <Label id="errorMessage" fx:id="errorMessage" layoutX="532.0" layoutY="574.0" text="You have Already Answer Prev Question" textFill="#e10606" visible="false">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </Label>
+        <Label id="errorMessage_next" fx:id="errorMessage_next" layoutX="566.0" layoutY="574.0" text="Answer the question First" textFill="#e10606" visible="false">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </Label>
+      <AnchorPane prefHeight="795.0" prefWidth="351.0" style="-fx-background-color: #DDE1E5;">
+         <children>
+            <ImageView fx:id="nationality" fitHeight="210.0" fitWidth="200.0" layoutX="74.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@nepalflag.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="24.0" layoutY="331.0" text="Name: ">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="24.0" layoutY="373.0" text="Gender:">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+    </children>
+
+</AnchorPane>
