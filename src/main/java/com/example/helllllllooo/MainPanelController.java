@@ -11,24 +11,35 @@ import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.LineChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import javafx.util.Pair;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-/**
- * FXML Controller class
- *
- * @author Ramesh Godara
- */
 public class MainPanelController implements Initializable {
-
+    public Button page01;
+    public ImageView userImage;
+    @FXML
+    private Label greetingLabel;
+    @FXML
+    private Label nameLabel;
+    @FXML
+    private Label genderLabel;
+    @FXML
+    private Label emailLabel;
+    @FXML
+    private Label mobileLabel;
 
     @FXML
     private BorderPane borderPane;
@@ -41,21 +52,22 @@ public class MainPanelController implements Initializable {
 
     @FXML
     private LineChart<?, ?> chartReceipt;
-
     @FXML
-    private Label greetingLabel;
+    private ImageView nationality;
 
     private List<Button> menus;
+
+    public String loggedInUsername;
+    private String fullName;
+    private String email;
+    private String gender;
+    private String mobile;
 
     public MainPanelController() {
     }
 
-    /**
-     * Initializes the controller class.
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // Initialize the menus list with your actual buttons
         menus = List.of(/* Add your buttons here */);
     }
 
@@ -70,17 +82,27 @@ public class MainPanelController implements Initializable {
         }
     }
 
-    public void handleLogin(String userName) {
-        greetingLabel.setText("Welcome, " + userName + "!");
-    }
-
     @FXML
     private void clear() {
         borderPane.setCenter(null);
     }
 
     @FXML
-    private void loadFXML(String fileName) {
+    private Pair<Parent, HomeViewController> loadFXML(String fileName) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(fileName + ".fxml"));
+        Parent parent = null;
+        try {
+            parent = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        HomeViewController controller = loader.getController();
+
+        return new Pair<>(parent, controller);
+    }
+    @FXML
+    private void loadFXML1(String fileName) {
         Parent parent;
         try {
             parent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fileName + ".fxml")));
@@ -118,31 +140,115 @@ public class MainPanelController implements Initializable {
 
     @FXML
     private void loadPage01View(ActionEvent e) {
-        loadFXML("Page01View");
+        loadFXML1("Page01View");
         changeButtonBackground((Button) e.getSource());
     }
 
+
+
+
     @FXML
-    private void loadPage02View(ActionEvent e) {
-        loadFXML("Page02View");
+    private void loadHomeView(ActionEvent e) throws Exception {
+        // Set the center of the borderPane to the main view
+        clear(); // Clear existing content
+        Pair<Parent, HomeViewController> result = loadFXML("HomeView");;
+        HomeViewController homeViewController = result.getValue();
+
+        // Set the logged-in username in the HomeViewController
+        homeViewController.setLoggedInUsername(loggedInUsername);
+
+        // Set the center of the borderPane to the loaded view
+        borderPane.setCenter(result.getKey());
         changeButtonBackground((Button) e.getSource());
     }
 
-    @FXML
-    private void loadPage03View(ActionEvent e) {
-        loadFXML("Page03View");
-        changeButtonBackground((Button) e.getSource());
+    private Button getCurrentMenuButton() {
+        return null;
     }
 
-    @FXML
-    private void loadPage04View(ActionEvent e) {
-        loadFXML("Page04View");
-        changeButtonBackground((Button) e.getSource());
+    public void initializeUser(String userName) {
+        loggedInUsername = userName;
     }
 
-    @FXML
-    private void loadHomeView(ActionEvent e) {
-        loadFXML("HomeView");
-        changeButtonBackground((Button) e.getSource());
+    public void handleLogin(String userName, User user) {
+        greetingLabel.setText("Welcome, " + userName + "!");
+        updateLabels(user);
+        updateFlag(user);
+    }
+
+    private void updateLabels(User user) {
+        if (user != null) {
+            loggedInUsername=user.getUsername();
+            fullName=user.getName();
+            nameLabel.setText("Name: " + user.getName());
+            email=user.getEmail();
+            emailLabel.setText("Email: " + user.getEmail());
+            mobile=user.getMobile();
+            mobileLabel.setText("Mobile no: " + user.getMobile());
+            gender=user.getGender();
+            genderLabel.setText("Gender: " + user.getGender());
+            System.out.println(loggedInUsername);
+        } else {
+            nameLabel.setText("Name: N/A");
+            emailLabel.setText("Email: N/A");
+            mobileLabel.setText("Mobile no: N/A");
+            genderLabel.setText("Gender: N/A");
+        }
+
+    }
+    private void updateFlag(User user) {
+        if (user != null) {
+            nameLabel.setText("Name: " + user.getName());
+
+            String userFlag = user.getUserFlag();
+
+            if (userFlag != null) {
+                String imagePath = "/com/example/helllllllooo/";
+
+                if ("Nepal".equals(userFlag)) {
+                    imagePath += "nepalflag.png";
+                } else if ("Malaysia".equals(userFlag)) {
+                    imagePath += "malaysiaflag.png";
+                } else if ("Thailand".equals(userFlag)) {
+                    imagePath += "thaiFlag.png";
+                } else if ("Singapore".equals(userFlag)) {
+                    imagePath += "singaporeFlag.png";
+                }
+
+                InputStream stream = getClass().getResourceAsStream(imagePath);
+
+                if (stream != null) {
+                    Image image = new Image(stream);
+                    nationality.setFitHeight(130);
+                    nationality.setFitWidth(190);
+                    nationality.setImage(image);
+                } else {
+                    System.out.println("Image not found: " + imagePath);
+                }
+            } else {
+                System.out.println("User flag is null");
+            }
+        } else {
+            System.out.println("User is null");
+        }
+    }
+    public String getLoggedInUsername() {
+        return loggedInUsername;
+    }
+
+    public void chooseImageClicked(ActionEvent actionEvent) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif")
+        );
+
+        // Show open file dialog
+        File selectedFile = fileChooser.showOpenDialog(new Stage());
+
+        if (selectedFile != null) {
+            // Load the selected image into the ImageView
+            Image selectedImage = new Image(selectedFile.toURI().toString());
+            userImage.setImage(selectedImage);
+        }
     }
 }

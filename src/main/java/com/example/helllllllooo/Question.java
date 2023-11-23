@@ -8,79 +8,24 @@ import java.util.List;
 
 public class Question {
 
-
-    private static final String filePath = "src/main/resources/com/example/helllllllooo/question_list1.txt";
-    private List<String> lines;
-
     private String question;
-    private String choiceA;
-    private String choiceB;
-    private String choiceC;
-    private String choiceD;
+    private String option1;
+    private String option2;
+    private String option3;
+    private String option4;
+    private String correctAnswer;
 
-    public Question() {
-        lines = readLinesFromFile();
-    }
-
-    public Question(String question, String choiceA, String choiceB, String choiceC, String choiceD) {
+    public Question(String question, String option1, String option2, String option3, String option4, String correctAnswer) {
         this.question = question;
-        this.choiceA = choiceA;
-        this.choiceB = choiceB;
-        this.choiceC = choiceC;
-        this.choiceD = choiceD;
-    }
-
-    public Question(Object question, String choiceA, String choiceB, String choiceC, String choiceD) {
-    }
-
-    public List<String> readLinesFromFile() {
-        List<String> fileLines = new ArrayList<>();
-
-        try {
-            FileReader fileReader = new FileReader(filePath);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-
-            String line;
-
-            while ((line = bufferedReader.readLine()) != null) {
-                fileLines.add(line);
-            }
-
-            bufferedReader.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return fileLines;
-    }
-
-
-    public List<String> getChoices() {
-        List<String> choices = new ArrayList<>();
-        choices.add(choiceA);
-        choices.add(choiceB);
-        choices.add(choiceC);
-        choices.add(choiceD);
-        return choices;
-    }
-
-    public String getCorrectAnswer() {
-        return "Implement logic to get correct answer based on question";
-    }
-
-    public int getTotalNumberOfLinesInFile() {
-        return 0;
-    }
-
-    public List<String> getChoices(int choiceStartIndex, int choiceEndIndex) {
-        return null;
-    }
-
-    public String getQuestion(int questionIndex) {
-        return question;
+        this.option1 = option1;
+        this.option2 = option2;
+        this.option3 = option3;
+        this.option4 = option4;
+        this.correctAnswer = correctAnswer;
     }
 
     public String getQuestion() {
-        return null;
+        return question;
     }
+
 }

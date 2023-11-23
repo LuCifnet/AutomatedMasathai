@@ -23,8 +23,6 @@ import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
 
-    private final Connection con;
-
     @FXML
     private TextField username;
 
@@ -37,8 +35,6 @@ public class LoginController implements Initializable {
     private Window window;
 
     public LoginController() {
-        DbConnection dbc = DbConnection.getDatabaseConnection();
-        con = DbConnection.getConnection();
     }
 
     @FXML
@@ -46,9 +42,9 @@ public class LoginController implements Initializable {
         if (isValidated()) {
             PreparedStatement ps;
             ResultSet rs;
-
             String query = "select * from users WHERE username = ?";
             try {
+                Connection con = DbConnection.getConnection();
                 ps = con.prepareStatement(query);
                 ps.setString(1, username.getText());
                 rs = ps.executeQuery();
@@ -56,31 +52,23 @@ public class LoginController implements Initializable {
                 if (rs.next()) {
                     String storedHashedPassword = rs.getString("hashed_password");
 
-                    // Check if the provided password matches the stored hashed password
                     if (BCrypt.checkpw(password.getText(), storedHashedPassword)) {
-                        // Call handleLogin to update the greeting label in MainPanelController
-                        handleLogin(username.getText());
-
-                        // Now, close the login window and open the main panel view
-                        Stage stage = (Stage) loginButton.getScene().getWindow();
-                        stage.close();
-
-                        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("MainPanelView.fxml")));
-
-                        Scene scene = new Scene(root);
-
-                        stage.setScene(scene);
-                        stage.setTitle("Admin Panel");
-
-                        stage.show();
+                        User user = new User(
+                                rs.getString("full_name"),
+                                rs.getString("email"),
+                                rs.getString("mobile_number"),
+                                rs.getString("gender"),
+                                rs.getString("Nationality"),
+                                rs.getString("username")
+                        );
+                        // Load the MainPanel.fxml file
+                        loadMainPanel(user);
                     } else {
-                        AlertHelper.showAlert(Alert.AlertType.ERROR, window, "Error",
-                                "Invalid username and password.");
+                        showAlert(Alert.AlertType.ERROR, "Invalid username and password.");
                         username.requestFocus();
                     }
                 } else {
-                    AlertHelper.showAlert(Alert.AlertType.ERROR, window, "Error",
-                            "Invalid username and password.");
+                    showAlert(Alert.AlertType.ERROR, "Invalid username and password.");
                     username.requestFocus();
                 }
             } catch (SQLException ex) {
@@ -88,31 +76,6 @@ public class LoginController implements Initializable {
             }
         }
     }
-
-    private boolean isValidated() {
-        window = loginButton.getScene().getWindow();
-        if (username.getText().isEmpty()) {
-            AlertHelper.showAlert(Alert.AlertType.ERROR, window, "Error",
-                    "Username text field cannot be blank.");
-            username.requestFocus();
-        } else if (username.getText().length() < 5 || username.getText().length() > 25) {
-            AlertHelper.showAlert(Alert.AlertType.ERROR, window, "Error",
-                    "Username text field cannot be less than 5 and greater than 25 characters.");
-            username.requestFocus();
-        } else if (password.getText().isEmpty()) {
-            AlertHelper.showAlert(Alert.AlertType.ERROR, window, "Error",
-                    "Password text field cannot be blank.");
-            password.requestFocus();
-        } else if (password.getText().length() < 5 || password.getText().length() > 25) {
-            AlertHelper.showAlert(Alert.AlertType.ERROR, window, "Error",
-                    "Password text field cannot be less than 5 and greater than 25 characters.");
-            password.requestFocus();
-        } else {
-            return true;
-        }
-        return false;
-    }
-
     @FXML
     private void showRegisterStage() throws IOException {
         Stage stage = (Stage) loginButton.getScene().getWindow();
@@ -126,10 +89,29 @@ public class LoginController implements Initializable {
         stage.setTitle("User Registration");
         stage.show();
     }
+    private boolean isValidated() {
+        window = loginButton.getScene().getWindow();
+        if (username.getText().isEmpty() || username.getText().length() < 5 || username.getText().length() > 25) {
+            showAlert(Alert.AlertType.ERROR, "Invalid username.");
+            username.requestFocus();
+        } else if (password.getText().isEmpty() || password.getText().length() < 5 || password.getText().length() > 25) {
+            showAlert(Alert.AlertType.ERROR, "Invalid password.");
+            password.requestFocus();
+        } else {
+            return true;
+        }
+        return false;
+    }
+    private void showAlert(Alert.AlertType type, String content) {
+        Alert alert = new Alert(type);
+        alert.initOwner(window);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
 
-
-    // Method to handle the login and update greeting label in MainPanelController
-    private void handleLogin(String userName) {
+    private void loadMainPanel(User user) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("MainPanelView.fxml"));
             Parent root = loader.load();
@@ -138,7 +120,13 @@ public class LoginController implements Initializable {
             MainPanelController mainPanelController = loader.getController();
 
             // Call the handleLogin method in MainPanelController
-            mainPanelController.handleLogin(userName);
+            mainPanelController.handleLogin(username.getText(), user);
+
+            Stage stage = (Stage) loginButton.getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Main Panel");
+            stage.show();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -147,6 +135,6 @@ public class LoginController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        // You can perform initialization tasks here
     }
 }

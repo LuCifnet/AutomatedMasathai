@@ -5,12 +5,14 @@
  */
 package com.example.helllllllooo;
 
+import javafx.event.ActionEvent;
 import org.mindrot.jbcrypt.BCrypt;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.EventObject;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -23,10 +25,6 @@ import javafx.scene.control.*;
 
 import javafx.stage.Stage;
 
-/**
- *
- * @author Ramesh Godara
- */
 public class RegisterController implements Initializable {
 
     public Hyperlink loginHyperlink;
@@ -55,12 +53,13 @@ public class RegisterController implements Initializable {
     private RadioButton othersRadioButton;
 
     @FXML
+    private ToggleGroup genderToggleGroup;
+
+    @FXML
     private Button submitButton;
 
     @FXML
     private MenuButton nationalityField;
-
-
     @FXML
     private PasswordField passwordField;
 
@@ -69,6 +68,7 @@ public class RegisterController implements Initializable {
 
     @FXML
     private Label messageLabel;
+    private EventObject event;
 
     @FXML
     private void onSubmitButtonClick() {
@@ -127,21 +127,31 @@ public class RegisterController implements Initializable {
         confirmPasswordField.clear();
     }
 
-    public void initialize() {
-        nationalityField.getItems().forEach(item -> item.setOnAction(event -> {
-            String selectedNationality = ((MenuItem) event.getSource()).getText();
-            nationalityField.setText(selectedNationality);
-        }));
+    public void initialize(URL location, ResourceBundle resources) {
+        initializeGenderToggleGroup();
+        clearFormFields();
     }
 
+    private void initializeGenderToggleGroup() {
+        this.genderToggleGroup = new ToggleGroup();
+        maleRadioButton.setToggleGroup(this.genderToggleGroup);
+        femaleRadioButton.setToggleGroup(this.genderToggleGroup);
+        othersRadioButton.setToggleGroup(this.genderToggleGroup);
+    }
+
+
+    public RegisterController() {
+        // Default constructor
+    }
+
+
     private String getSelectedGender() {
-        if (maleRadioButton.isSelected()) {
-            return "Male";
-        } else if (femaleRadioButton.isSelected()) {
-            return "Female";
-        } else if (othersRadioButton.isSelected()) {
-            return "Others";
+        RadioButton selectedRadioButton = (RadioButton) genderToggleGroup.getSelectedToggle();
+
+        if (selectedRadioButton != null) {
+            return selectedRadioButton.getText();
         }
+
         return "Not Specified";
     }
 
@@ -175,7 +185,11 @@ public class RegisterController implements Initializable {
     }
 
     private void showError(String message) {
-        messageLabel.setText(message);
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
     private boolean isValidEmail(String email) {
@@ -233,10 +247,7 @@ public class RegisterController implements Initializable {
         alert.showAndWait();
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        clearFormFields();
-    }
+
     @FXML
     private void onBackToLoginButtonClick() throws IOException {
         Stage stage = (Stage) submitButton.getScene().getWindow();
@@ -250,4 +261,24 @@ public class RegisterController implements Initializable {
         stage.setTitle("User Login");
         stage.show();
     }
+
+    public void nationality(ActionEvent actionEvent) {
+        String selectedNationality = ((MenuItem) actionEvent.getSource()).getText();
+        nationalityField.setText(selectedNationality);
+    }
+
+    @FXML
+    private void onGenderSelected(ActionEvent event) {
+        RadioButton selectedRadioButton = (RadioButton) event.getSource();
+
+        // Unselect other radio buttons
+        maleRadioButton.setSelected(false);
+        femaleRadioButton.setSelected(false);
+        othersRadioButton.setSelected(false);
+
+        // Select the clicked radio button
+        selectedRadioButton.setSelected(true);
+    }
+
 }
+

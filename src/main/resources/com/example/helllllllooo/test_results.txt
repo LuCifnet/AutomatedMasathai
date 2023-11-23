@@ -1,0 +1,86 @@
+Results:
+Question 1:
+User's Answer: Orchid
+Correct Answer: Hibiscus
+
+Question 2:
+User's Answer: It was named after a famous lion king
+Correct Answer: It was named after a lion statue at its entrance
+
+Question 3:
+User's Answer: Loy Krathong
+Correct Answer: Songkran
+
+Question 4:
+User's Answer: Historical museum
+Correct Answer: Communications tower
+
+Question 5:
+User's Answer: Tamil
+Correct Answer: English
+
+Question 6:
+User's Answer: Green Curry
+Correct Answer: Tom Yum Goong
+
+Question 7:
+User's Answer: A mythical creature
+Correct Answer: A mythical creature
+
+Question 8:
+User's Answer: Malays Thais Indonesians
+Correct Answer: Malays, Chinese, Indians
+
+Question 9:
+User's Answer: Loy Krathong
+Correct Answer: Loy Krathong
+
+Question 10:
+User's Answer: Buddhism
+Correct Answer: Islam
+
+Question 11:
+User's Answer: A zoo
+Correct Answer: An orchid garden
+
+Question 12:
+User's Answer: Chiang Mai
+Correct Answer: Chiang Mai
+
+Question 13:
+User's Answer: Sticky Rice with Mango
+Correct Answer: Mango Sticky Rice
+
+Question 14:
+User's Answer: 1947
+Correct Answer: 1963
+
+Question 15:
+User's Answer: Negaraku
+Correct Answer: "Majulah Singapura"
+
+Question 16:
+User's Answer: King Rama X
+Correct Answer: King Rama X
+
+Question 17:
+User's Answer: Banking
+Correct Answer: Oil and Gas
+
+Question 18:
+User's Answer: Independence Day
+Correct Answer: Malaysia Day
+
+Question 19:
+User's Answer: Thai Dance
+Correct Answer: Khon
+
+Question 20:
+User's Answer: Badminton
+Correct Answer: Sepak Takraw
+
+Total Correct Answers: 4
+Total Wrong Answers: 16
+Total Questions: 20
+Total Score: 4/20
+------------------------------------------------------------------

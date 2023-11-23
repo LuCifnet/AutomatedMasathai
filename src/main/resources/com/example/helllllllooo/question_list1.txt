@@ -1,101 +1,21 @@
-1. What is the national flower of Malaysia?
-   - Orchid
-   - Hibiscus (Correct Answer)
-   - Lotus
-   - Jasmine
+What is the national flower of Malaysia?,Orchid,Hibiscus,Lotus,Jasmine
+Singapore is known as the "Lion City." What is the origin of this name?,It was named after a lion statue at its entrance,It has a significant population of lions,It was named after a famous lion king,It's a symbolic representation of strength and courage.
+Which Thai festival is famous for its water fights and symbolizes the Thai New Year?,Songkran,Loy Krathong,Yee Peng,Chakri Day
+The Kuala Lumpur Tower is an iconic landmark in Malaysia What is its main purpose?,Communications tower,Historical museum,Luxury hotel,Art gallery
+What is the official language of Singapore?,Malay,Tamil,Mandarin Chinese,English
+In Thailand which dish is a famous and spicy street food made with rice noodles shrimp and a hot and sour soup?,Pad Thai,Green Curry,Tom Yum Goong,Som Tum
+The Merlion statue is a wellknown symbol of Singapore What does it represent?,The city's maritime heritage,A mythical creature,A famous leader,The city's financial strength
+Malaysia is known for its diverse ethnic makeup Which are the three major ethnic groups in Malaysia?,Malays Chinese Indians,Malays Thais Indonesians,Malays Filipinos Singaporeans,Malays Japanese Koreans
+Which famous Thai festival involves releasing decorated floating baskets into rivers and lakes to pay respect to water spirits?,Songkran,Loy Krathong,Thai New Year,Chakri Day
+What is the primary religion in Malaysia?,Islam,Buddhism,Hinduism,Christianity
+The Singapore Botanic Gardens is renowned for housing what unique attraction?,An orchid garden,A zoo,A dinosaur exhibit,An ancient forest
+Which Thai city is often referred to as the "Rose of the North" and is known for its beautiful temples and cultural heritage?,Bangkok,Chiang Mai,Phuket,Pattaya
+What is the name of the famous Thai dessert made from sticky rice and served with mango?,Mango Sticky Rice,Sticky Rice with Mango,Mango Rice,Mango with Sticky Rice
+In which year did Malaysia gain independence from British colonial rule?,1945,1947,1957,1963
+Singapore's national anthem is called?,Majulah Singapura,Negaraku,Jana Gana Mana,Aegukga
+The Thai monarchy plays a significant role in the country's culture and history Who is the current monarch of Thailand (as of my last knowledge cutoff date in 2022)?,King Rama IX,King Rama X,King Bhumibol,King Prajadhipok
+The Petronas Towers in Kuala Lumpur Malaysia were once the world's tallest twin towers Which industry are they associated with?,Oil and Gas,Banking,Tourism,Agriculture
+The multiculturalism of Malaysia is celebrated during which national holiday?,Malaysia Day,Independence Day,Chinese New Year,Deepavali
+Thailand is famous for its traditional dance form that combines elegant hand movements and intricate costumes What is it called?,Khon,Thai Dance,Thai Ballet,Thai Classical Dance
+What is the national sport of Singapore?,Football,Badminton,Sepak Takraw,Table Tennis
 
-2. Singapore is known as the "Lion City." What is the origin of this name?
-   - It was named after a lion statue at its entrance. (Correct Answer)
-   - It has a significant population of lions.
-   - It was named after a famous lion king.
-   - It's a symbolic representation of strength and courage.
-
-3. Which Thai festival is famous for its water fights and symbolizes the Thai New Year?
-   - Songkran (Correct Answer)
-   - Loy Krathong
-   - Yee Peng
-   - Chakri Day
-
-4. The Kuala Lumpur Tower is an iconic landmark in Malaysia. What is its main purpose?
-   - Communications tower (Correct Answer)
-   - Historical museum
-   - Luxury hotel
-   - Art gallery
-
-5. What is the official language of Singapore?
-   - Malay
-   - Tamil
-   - Mandarin Chinese
-   - English (Correct Answer)
-
-6. In Thailand, which dish is a famous and spicy street food made with rice noodles, shrimp, and a hot and sour soup?
-   - Pad Thai
-   - Green Curry
-   - Tom Yum Goong (Correct Answer)
-   - Som Tum
-
-7. The Merlion statue is a well-known symbol of Singapore. What does it represent?
-   - The city's maritime heritage
-   - A mythical creature (Correct Answer)
-   - A famous leader
-   - The city's financial strength
-
-8. Malaysia is known for its diverse ethnic makeup. Which are the three major ethnic groups in Malaysia?
-   - Malays, Chinese, Indians (Correct Answer)
-   - Malays, Thais, Indonesians
-   - Malays, Filipinos, Singaporeans
-   - Malays, Japanese, Koreans
-
-9. Which famous Thai festival involves releasing decorated floating baskets into rivers and lakes to pay respect to water spirits?
-   - Songkran
-   - Loy Krathong (Correct Answer)
-   - Thai New Year
-   - Chakri Day
-
-10. What is the primary religion in Malaysia?
-    - Islam (Correct Answer)
-    - Buddhism
-    - Christianity
-    - Hinduism
-
-11. The Singapore Botanic Gardens is renowned for housing what unique attraction?
-    - An orchid garden (Correct Answer)
-    - A zoo
-    - A dinosaur exhibit
-    - An ancient forest
-
-12. Which Thai city is often referred to as the "Rose of the North" and is known for its beautiful temples and cultural heritage?
-    - Bangkok
-    - Chiang Mai (Correct Answer)
-    - Phuket
-    - Pattaya
-
-13. What is the name of the famous Thai dessert made from sticky rice and served with mango?
-    - Green Curry
-    - Pad Thai
-    - Mango Sticky Rice (Correct Answer)
-    - Tom Yum
-
-14. In which year did Malaysia gain independence from British colonial rule?
-    - 1947
-    - 1957
-    - 1963 (Correct Answer)
-    - 1970
-
-15. Singapore's national anthem is called:
-    - "Majulah Singapura" (Correct Answer)
-    - "Negaraku"
-    - "Jana Gana Mana"
-    - "Aegukga"
-
-16. The Thai monarchy plays a significant role in the country's culture and history. Who is the current monarch of Thailand (as of my last knowledge cutoff date in 2022)?
-    - King Rama IX
-    - King Rama X (Correct Answer)
-    - King Bhumibol
-    - King Prajadhipok
-
-17. The Petronas Towers in Kuala Lumpur, Malaysia, were once the world's tallest twin towers. Which industry are they associated with?
-    - Oil and Gas (Correct Answer)
-    - Banking
-    - Tourism
-    - Agriculture

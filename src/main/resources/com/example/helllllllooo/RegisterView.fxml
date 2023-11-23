@@ -11,6 +11,7 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
@@ -64,7 +65,7 @@
                <cursor>
                   <Cursor fx:constant="TEXT" />
                </cursor></TextField>
-            <PasswordField fx:id="passwordField" alignment="TOP_LEFT" layoutX="15.0" layoutY="267.0" prefHeight="40.0" prefWidth="301.0" promptText="Enter Your Password">
+            <PasswordField fx:id="passwordField" layoutX="15.0" layoutY="267.0" prefHeight="40.0" prefWidth="301.0" promptText="Enter Your Password">
                <cursor>
                   <Cursor fx:constant="TEXT" />
                </cursor></PasswordField>
@@ -75,31 +76,43 @@
             <DatePicker fx:id="birthdatePicker" layoutX="15.0" layoutY="349.0" prefHeight="26.0" prefWidth="191.0" promptText="BirthDate" />
             <MenuButton fx:id="nationalityField" layoutX="333.0" layoutY="348.0" prefHeight="27.0" prefWidth="133.0" text="Nationality">
                <items>
-                  <MenuItem text="Nepal" />
-                  <MenuItem text="Thailand" />
-                  <MenuItem text="Malaysia" />
-                  <MenuItem text="Singapore" />
+                  <MenuItem onAction="#nationality" text="Nepal" />
+                  <MenuItem onAction="#nationality" text="Thailand" />
+                  <MenuItem onAction="#nationality" text="Malaysia" />
+                  <MenuItem onAction="#nationality" text="Singapore" />
                </items>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
             </MenuButton>
             <Label layoutX="17.0" layoutY="397.0" text="Gender" textFill="#403a3a">
                <font>
                   <Font name="Verdana Bold" size="14.0" />
                </font>
             </Label>
-            <RadioButton fx:id="maleRadioButton" layoutX="113.0" layoutY="399.0" mnemonicParsing="false" text="Male">
+            <RadioButton fx:id="maleRadioButton" layoutX="113.0" layoutY="399.0" mnemonicParsing="false" onAction="#onGenderSelected" text="Male">
                <cursor>
                   <Cursor fx:constant="HAND" />
-               </cursor></RadioButton>
-            <RadioButton fx:id="femaleRadioButton" layoutX="207.0" layoutY="400.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="60.0" text="Female">
+               </cursor>
+               <toggleGroup>
+                  <ToggleGroup fx:id="genderToggleGroup" />
+               </toggleGroup>
+            </RadioButton>
+
+            <RadioButton fx:id="femaleRadioButton" layoutX="207.0" layoutY="400.0" mnemonicParsing="false" onAction="#onGenderSelected" prefHeight="18.0" prefWidth="60.0" text="Female" toggleGroup="$genderToggleGroup">
                <cursor>
                   <Cursor fx:constant="HAND" />
-               </cursor></RadioButton>
-            <RadioButton fx:id="othersRadioButton" layoutX="308.0" layoutY="401.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="73.0" text="Others">
+               </cursor>
+            </RadioButton>
+
+            <RadioButton fx:id="othersRadioButton" layoutX="308.0" layoutY="401.0" mnemonicParsing="false" onAction="#onGenderSelected" prefHeight="18.0" prefWidth="73.0" text="Others" toggleGroup="$genderToggleGroup">
                <cursor>
                   <Cursor fx:constant="HAND" />
-               </cursor></RadioButton>
-            <CheckBox  layoutX="17.0" layoutY="435.0" mnemonicParsing="false" text="By using the System, you agree to be bound by these Terms. " />
-            <Button fx:id="submitButton" layoutX="272.0" layoutY="479.0" mnemonicParsing="false" onAction="#onSubmitButtonClick" prefHeight="34.0" prefWidth="122.0" style="-fx-background-color: #054D3B;" text="SUBMIT" textFill="WHITE">
+               </cursor>
+            </RadioButton>
+
+            <CheckBox layoutX="17.0" layoutY="435.0" mnemonicParsing="false" text="By using the System, you agree to be bound by these Terms. " />
+            <Button fx:id="submitButton" layoutX="272.0" layoutY="479.0" mnemonicParsing="false" onAction="#onSubmitButtonClick" prefHeight="34.0" prefWidth="122.0" styleClass="loginSub" stylesheets="@mainpanel.css" text="SUBMIT" textFill="WHITE">
                <font>
                   <Font name="Verdana Bold" size="14.0" />
                </font>

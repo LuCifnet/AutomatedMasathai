@@ -5,16 +5,13 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.*;
-import java.util.*;
 
 public class QuizController {
 
@@ -22,23 +19,62 @@ public class QuizController {
     public static int wrong;
     public Label question;
 
-
+    private static int TIME_LIMIT_SECONDS = 300; // 5 minutes
     @FXML
     public Button opt1, opt2, opt3, opt4, submitButton;
-
-    private static final int TIME_LIMIT_SECONDS = 600; // 10 minutes
+    
+    public Button nextButton;
+    public Button prevButton;
+    public Label timerLabel;
+    public ImageView nationality;
+    public Label nameLabel;
+    public Label genderLabel;
     private Timeline timer;
-    private int counter = 0;
+    private int counter =0;
+
+    private String[] userAnswers = new String[20];
+
 
     @FXML
     private Label errorMessage;
 
-    @FXML
-    private Label errorMessage_next;
+    private Alert currentAlert; // Global variable to store the currently displayed alert
+
+    private String line;
+
+
     private void setupTimer() {
-        timer = new Timeline(new KeyFrame(Duration.seconds(TIME_LIMIT_SECONDS), event -> showResults()));
-        timer.setCycleCount(1); // Run once
+        timer = new Timeline(
+                new KeyFrame(Duration.seconds(1), event -> {
+                    updateTimerLabel();
+                    TIME_LIMIT_SECONDS--;
+
+                    if (TIME_LIMIT_SECONDS <= 0) {
+                        timer.stop();
+                        handleTimerExpiration();
+                    }
+                })
+        );
+        timer.setCycleCount(Timeline.INDEFINITE);
         timer.play();
+    }
+
+    private void updateTimerLabel() {
+        int minutes = TIME_LIMIT_SECONDS / 60;
+        int seconds = TIME_LIMIT_SECONDS % 60;
+        timerLabel.setText(String.format("%02d:%02d", minutes, seconds));
+    }
+
+    private void handleTimerExpiration() {
+        if (!allQuestionsAnswered()) {
+            // If not all questions are answered, show a failure alert
+            showAlert("Time's Up!", "You did not submit in time. You have failed the quiz.", Alert.AlertType.ERROR);
+
+            // Show results with 0 correct answers and all questions marked as wrong
+            correct = 0;
+            wrong = 17;
+            showResults();
+        }
     }
 
 
@@ -47,166 +83,66 @@ public class QuizController {
         loadQuestions();
         setupTimer();
     }
+    private final boolean[] questionAnswered = new boolean[20];
 
-    private boolean[] questionAnswered = new boolean[10];
 
     private void loadQuestions() {
+        try {
+            // Read the question from a text file
+            BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/com/example/helllllllooo/question_list1.txt"));
 
-        if (!questionAnswered[counter]) {
-            if (counter == 0) { // Question 1
-                question.setText("1. How many consonants are there in the English alphabet?");
-                opt1.setText("19");
-                opt2.setText("20");
-                opt3.setText("21");
-                opt4.setText("22");
-            }
-            if (counter == 1) { // Question 2
-                question.setText("2. Who invented the Light bulb?");
-                opt1.setText("Thomas Alva Edison");
-                opt2.setText("Alexander Fleming");
-                opt3.setText("Charles Babbage");
-                opt4.setText("Albert Einstein");
-            }
-            if (counter == 2) { //Question 3
-                question.setText("3. In the Solar System, farthest planet from the Sun is");
-                opt1.setText("Jupiter");
-                opt2.setText("Saturn");
-                opt3.setText("Uranus");
-                opt4.setText("Neptune");
-            }
-            if (counter == 3) { //Question 4
-                question.setText("4. Largest moon in the Solar System?");
-                opt1.setText("Titan");
-                opt2.setText("Ganymede");
-                opt3.setText("Moon");
-                opt4.setText("Europa");
-            }
-            if (counter == 4) {//Question 5
-                question.setText("5. Which of these is 'not' a property of metal?");
-                opt1.setText("Good Conduction");
-                opt2.setText("Malleable");
-                opt3.setText("Non Ductile");
-                opt4.setText("Sonourous");
-            }
-            if (counter == 5) { //Question 6
-                question.setText("6. Who discovered Pasteurisation?");
-                opt1.setText("Alexander Fleming");
-                opt2.setText("Louis Pasteur");
-                opt3.setText("Simon Pasteur");
-                opt4.setText("William Pasteur");
-            }
-            if (counter == 6) { //Question 7
-                question.setText("7. Hydrochloric acid (HCl) is produced by -?");
-                opt1.setText("Small Intestine");
-                opt2.setText("Liver");
-                opt3.setText("Oesophagus");
-                opt4.setText("Stomach");
-            }
-            if (counter == 7) { //Question 8
-                question.setText("8. The fastest animal in the world is -");
-                opt1.setText("Lion");
-                opt2.setText("Blackbuck");
-                opt3.setText("Cheetah");
-                opt4.setText("Quarter Horse");
-            }
-            if (counter == 8) { //Question 9
-                question.setText("9. Complementary colour of Red is -");
-                opt1.setText("Blue");
-                opt2.setText("Green");
-                opt3.setText("Yellow");
-                opt4.setText("Pink");
-            }
-            if (counter == 9) { //Question 10
-                question.setText("10. World Environment Day is on -");
-                opt1.setText("5th June");
-                opt2.setText("5th July");
-                opt3.setText("15th June");
-                opt4.setText("25th June");
+            // Read the question for the current counter value
+            for (int i = 0; i <= counter; i++) {
+                line = reader.readLine();
+                if (line == null) {
+                    // End of file reached, reset counter and return
+                    counter = 0;
+                    reader.close();
+                    return;
+                }
             }
 
-        } else {
-            // If the question is already answered, show an appropriate message or handle it as needed
-            errorMessage.setVisible(true); // Show an error message
+            // Assuming each question has four options separated by commas
+            String[] parts = line.split(",");
+            if (parts.length == 5) {
+                String questionText = "Question " + (counter + 1) + ": " + parts[0];
+                question.setText(questionText);  // Concatenate "Question1" with the actual question
+
+                opt1.setText(parts[1]);      // Option 1
+                opt2.setText(parts[2]);      // Option 2
+                opt3.setText(parts[3]);      // Option 3
+                opt4.setText(parts[4]);      // Option 4
+            }
+
+            // Close the reader
+            reader.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
-
     }
 
-    boolean checkAnswer(String answer) {
+    boolean checkAnswer(String answer, int counter) {
+        String fileName = "src/main/resources/com/example/helllllllooo/answer.txt";
+        String correctAnswer = "";
 
-        if (counter == 0) {
-            if (answer.equals("21")) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-        if (counter == 1) {
-            if (answer.equals("Thomas Alva Edison")) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-        if (counter == 2) {
-            if (answer.equals("Neptune")) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-        if (counter == 3) {
-            if (answer.equals("Ganymede")) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-        if (counter == 4) {
-            if (answer.equals("Non Ductile")) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-        if (counter == 5) {
-            if (answer.equals("Louis Pasteur")) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-        if (counter == 6) {
-            if (answer.equals("Stomach")) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-        if (counter == 7) {
-            if (answer.equals("Cheetah")) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-        if (counter == 8) {
-            if (answer.equals("Green")) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-        if (counter == 9) {
-            if (answer.equals("5th June")) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-        return false;
+        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+            int lineCount = 0;
 
+            // Read the file line by line until reaching the desired counter value
+            while (lineCount <= counter) {
+                correctAnswer = br.readLine();
+                lineCount++;
+            }
 
+            // Compare the correct answer with the provided answer
+            return answer.equals(correctAnswer.trim());  // Use trim to remove leading/trailing whitespaces
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Handle the exception, e.g., log the error or return a default value
+            return false;
+        }
     }
 
     public void opt1clicked(ActionEvent event) {
@@ -228,38 +164,57 @@ public class QuizController {
         handleAnswer(opt4.getText());
     }
 
+
     private void handleAnswer(String answer) {
         if (!questionAnswered[counter]) {
             questionAnswered[counter] = true; // Mark the question as answered
-            checkAnswer(answer);
-            if (checkAnswer(answer)) {
+
+            // Store the user's selected answer
+            userAnswers[counter] = answer;
+
+            // Compare the user's selected option with the correct answer for the current question
+            if (checkAnswer(answer, counter)) {
                 correct++;
             } else {
                 wrong++;
             }
-            if (counter == 9) {
-                showResults();
+
+            if (allQuestionsAnswered()) {
+                // Enable the Next button when all questions are answered
+                nextButton.setDisable(false);
             } else {
                 counter++;
                 loadQuestions();
             }
         } else {
-            // If the question is already answered, show an appropriate message or handle it as needed
-            errorMessage.setVisible(true); // Show an error message
+            // If the question is already answered, close the current alert and show a new one
+            closeCurrentAlert();
+            showAlert("Error", "Please click Submit button to show the Result", Alert.AlertType.ERROR);
         }
+    }
+
+    private void closeCurrentAlert() {
+        if (currentAlert != null) {
+            currentAlert.close();
+        }
+
     }
 
 
     @FXML
     public void submitButtonClicked(ActionEvent event) {
         if (allQuestionsAnswered()) {
-            errorMessage.setVisible(false); // Hide the error message
-            showResults(); // Call showResults directly
+            // Hide the error message
+            if (errorMessage != null) {
+                errorMessage.setVisible(false);
+            }
+            showResults(); // Call showResults only when all questions are answered
+            saveResultsToFile();
         } else {
-            errorMessage.setVisible(true); // Show the error message
+            // Show an alert instead of the error message
+            showAlert("Error", "Please answer all questions before submitting", Alert.AlertType.ERROR);
         }
     }
-
     private boolean allQuestionsAnswered() {
         for (boolean answered : questionAnswered) {
             if (!answered) {
@@ -294,11 +249,11 @@ public class QuizController {
     }
 
 
+
     @FXML
     public void nextButtonClicked(ActionEvent event) {
-        // Hide both error messages first
-        errorMessage.setVisible(false);
-        errorMessage_next.setVisible(false);
+        // Hide both alerts first
+        hideAlerts();
 
         // Handle logic for the 'Next' button
         if (allQuestionsAnswered()) {
@@ -308,32 +263,107 @@ public class QuizController {
                 loadQuestions();
             }
         } else {
-            // If the current question is not answered, show an error message
-            errorMessage_next.setVisible(true);
+            // If the current question is not answered, show an Alert
+            showAlert("Error", "Please answer the current question first", Alert.AlertType.ERROR);
         }
+    }
+
+    private void hideAlerts() {
+        closeCurrentAlert();
     }
 
     @FXML
     public void prevButtonClicked(ActionEvent event) {
-        errorMessage.setVisible(false);
+        // Hide both alerts first
+        hideAlerts();
 
         // Handle logic for the 'Prev' button
         if (counter > 0) {
             counter--;
             loadQuestions();
-        } else {
-            // If the user is trying to go back from the first question, show a warning message
-            errorMessage.setVisible(true);
 
-            // Use a Timeline to hide the error message after a delay (e.g., 2 seconds)
-            Timeline timeline = new Timeline(new KeyFrame(
-                    Duration.seconds(2),
-                    e -> errorMessage.setVisible(false)
-            ));
-            timeline.setCycleCount(1); // Run once
-            timeline.play();
+            // Enable the Next button since we are going back to a previous question
+            nextButton.setDisable(false);
+
+            // Disable the Prev button if we are on the first question
+            prevButton.setDisable(counter == 0);
+
+            // Disable the Next button if the current question is already answered
+            nextButton.setDisable(questionAnswered[counter]);
+        } else {
+            // If the user is trying to go back from the first question, show a warning Alert
+            showAlert("Warning", "Cannot go back from the first question", Alert.AlertType.WARNING);
+            prevButton.setDisable(true);
+        }
+    }
+
+
+    private void showAlert(String title, String content, Alert.AlertType alertType) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+    private void saveResultsToFile() {
+        String fileName = "src/main/resources/com/example/helllllllooo/test_results.txt";
+
+        try (FileWriter writer = new FileWriter(fileName)) {
+            writer.write("Results:\n");
+
+            for (int i = 0; i < questionAnswered.length; i++) {
+                writer.write("Question " + (i + 1) + ":\n");
+
+                // Write the user's selected answer
+                writer.write("User's Answer: " + getSelectedAnswer(i) + "\n");
+
+                // Write the correct answer
+                writer.write("Correct Answer: " + getCorrectAnswer(i) + "\n\n");
+            }
+
+            writer.write("Total Correct Answers: " + correct + "\n");
+            writer.write("Total Wrong Answers: " + wrong + "\n");
+            writer.write("Total Questions: " + questionAnswered.length + "\n");
+            writer.write("Total Score: " + correct + "/" + questionAnswered.length + "\n");
+            writer.write("------------------------------------------------------------------");
+
+            // Optionally, you can write more information to the file if needed
+            // For example, you can write the user's name, time taken, etc.
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Handle the exception, e.g., log the error or show an alert
+        }
+    }
+
+    // Helper method to get the user's selected answer for a given question
+    private String getSelectedAnswer(int questionIndex) {
+        return userAnswers[questionIndex];
+    }
+
+    // Helper method to get the correct answer for a given question
+    private String getCorrectAnswer(int questionIndex) {
+        String fileName = "src/main/resources/com/example/helllllllooo/answer.txt";
+
+        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+            int lineCount = 0;
+
+            // Read the file line by line until reaching the desired counter value
+            while (lineCount <= questionIndex) {
+                String correctAnswer = br.readLine();
+                lineCount++;
+
+                if (lineCount == questionIndex + 1) {
+                    return correctAnswer.trim();
+                }
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Handle the exception, e.g., log the error or return a default value
         }
 
-    }}
+        return "Correct answer for Question " + (questionIndex + 1);
+    }
 
 
+    }
